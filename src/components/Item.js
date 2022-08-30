@@ -1,4 +1,3 @@
-import { useState } from "react";
 // El componente Item no tiene componentes hijos.
 // ESTADO: Item debe tener un número para almacenar la cantidad de stock, la misma se la defina el padre a la hora de crearlo.
 // MÉTODOS: Item debe manejar el click de su boton para restar la cantidad en stock de sí mismo y a su vez poder aumentar el estado de su "abuelo" App.
@@ -9,21 +8,24 @@ import { useState } from "react";
 //    h5 > span    (este span debe mostrar la cantidad si es mayor a 0 "agotado" si llega a 0)
 //    button       (este boton debe permitir comprar, pero si la cantidad es menor a 0 debe estar deshabilitado y decir "Sin stock")
 
+import { useRef, useState } from "react";
+
 export default function Item(props) {
 
   const[stock, setStock] = useState(props.stock);
+  const span= useRef();
 
-  const restarStock = (cantidad, stock, id) => {
-    if(stock >=1){
-      const agregarProducto = cantidad;
-      agregarProducto();
+  const restarStock = () => {
+
+    if(stock > 1){
       setStock(stock - 1);
+      props.agregarProducto();
+      span.current.classList.remove('stock');
     }
-    
-    if(stock === 1) {
+    else if(stock === 1) {
+      props.agregarProducto();
       setStock("agotado");
-      const botoncin = document.getElementById(id);
-      botoncin.innerText = "sin stock";
+      span.current.classList.add('stock');
     }
   }
 
@@ -32,8 +34,8 @@ export default function Item(props) {
       {/* {/* maquetar Item aquí */}
       <h3>{props.nombre}</h3>
       <p>{props.descripcion}</p>
-      <h5>En stock:<span>{stock}</span></h5>
-      <button id={props.id}  onClick={()=> restarStock(props.onStock, stock, props.id)} disabled={stock==="agotado"} >comprar</button>
+      <h5>En stock: <span ref={span}>{stock}</span></h5>
+      <button onClick={restarStock} disabled={stock==="agotado"} >{stock > 0 ? 'comprar' : 'sin stock'}</button>
     </div>
   )
 }
