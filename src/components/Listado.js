@@ -18,7 +18,7 @@ export default function Listado(props) {
             nombre={producto.producto.nombre}
             descripcion={producto.producto.descripcion} 
             stock={producto.stock} 
-            agregar          eProducto={props.cantidadProductos}
+            agregarProducto={props.cantidadProductos}
           />)
         }
       </div>
