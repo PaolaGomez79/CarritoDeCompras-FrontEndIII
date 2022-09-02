@@ -13,19 +13,19 @@ import { useRef, useState } from "react";
 export default function Item(props) {
 
   const[stock, setStock] = useState(props.stock);
-  const span= useRef();
+  const refSpan= useRef();
 
   const restarStock = () => {
 
     if(stock > 1){
       setStock(stock - 1);
       props.agregarProducto();
-      span.current.classList.remove('stock');
+      refSpan.current.classList.remove('stock');
     }
     else if(stock === 1) {
       props.agregarProducto();
       setStock("agotado");
-      span.current.classList.add('stock');
+      refSpan.current.classList.add('stock');
     }
   }
 
@@ -34,7 +34,7 @@ export default function Item(props) {
       {/* {/* maquetar Item aquí */}
       <h3>{props.nombre}</h3>
       <p>{props.descripcion}</p>
-      <h5>En stock: <span ref={span}>{stock}</span></h5>
+      <h5>En stock: <span ref={refSpan}>{stock}</span></h5>
       <button onClick={restarStock} disabled={stock==="agotado"} >{stock > 0 ? 'comprar' : 'sin stock'}</button>
     </div>
   )

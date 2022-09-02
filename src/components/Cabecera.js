@@ -5,7 +5,7 @@
 // Maqueta de Cabecera:
 //    h1
 //    p > span     (el span mostrará la cantidad recibida por props)
-
+import React from "react";
 
 export default function Cabecera(props) {
   
@@ -13,7 +13,7 @@ export default function Cabecera(props) {
     <header>
         {/* maquetar Cabecera aquí */}
         <h1>Carrito de compras</h1>
-        <p>Cantidad de productos<span>{ props.cantidad }</span></p>
+        <p>Cantidad de productos <span>{ props.cantidad }</span></p>
     </header>
   )
 }
